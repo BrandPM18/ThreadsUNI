@@ -1,6 +1,4 @@
-package com.uni.threads.parallelsort;
-
-import java.util.Arrays;
+package com.uni.threads.comparesort;
 
 /*
  *  Aqui pondremos un metodo estatico que invoque a  la funcion Arrays.parallelSort  retornaremos el tiempo que tarda
