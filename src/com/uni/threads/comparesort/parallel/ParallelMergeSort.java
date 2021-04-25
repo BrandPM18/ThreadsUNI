@@ -1,4 +1,4 @@
-package com.uni.threads.comparesort;
+package com.uni.threads.comparesort.parallel;
 /*
  * Aqui usamos el metodo usando hilos "Threads" puedes ingresar una clase del merge secuencial si es necesario
  * No coloques una funcion main aqui, corre el codigo en ParallelSortVector
