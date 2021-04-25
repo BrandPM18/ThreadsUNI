@@ -1,16 +1,14 @@
 package com.uni.threads.bfs;
 
 
-import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.Queue;
 
-public class SecuencialBFS {
-    private  int vertx; // Numero de vertices
-    private LinkedList<Integer>[]  graph; // Matriz de abyacencia
-    private LinkedList<Integer> solution = new LinkedList<>(); // Almacen de solucion
+public class SequentialBFS {
+    private final int vertx; // Numero de vertices
+    private final LinkedList<Integer>[]  graph; // Matriz de abyacencia
+    private final LinkedList<Integer> solution = new LinkedList<>(); // Almacen de solucion
 
-    public SecuencialBFS(int size) {
+    public SequentialBFS(int size) {
         this.vertx = size;
         this.graph = new LinkedList[vertx];
         for(int i= 0;i<vertx;i++)
@@ -21,7 +19,7 @@ public class SecuencialBFS {
     }
 
     public boolean notExistEdges(int vxt1,int vxt2){
-        return  (graph[vxt1].indexOf(vxt2)==-1 )|| (graph[vxt2].indexOf(vxt1)==-1 ) ;
+        return  (!graph[vxt1].contains(vxt2))|| (!graph[vxt2].contains(vxt1)) ;
     }
     public void generateEdge() {
         int rand1=0,rand2=0;
@@ -29,10 +27,10 @@ public class SecuencialBFS {
         for (int i = 0; i < edgeMax; i++) {
             rand1 = (int) (Math.random() * vertx);
             rand2 = (int) (Math.random() * vertx);
-            System.out.println(rand1 + "..." + rand2);
+            //System.out.println(rand1 + "..." + rand2);
             if ((rand1 == rand2) || !(notExistEdges(rand1, rand2))) {
                 i--;
-                System.out.println("Pass");
+                //System.out.println("Pass");
                 continue;
             }
             addEdges(new int[]{rand1, rand2});
@@ -41,18 +39,19 @@ public class SecuencialBFS {
 
 
     public void searchBFS(int num){
-        boolean pass[] = new boolean[vertx];
+        boolean[] pass = new boolean[vertx];
         pass[num] = true;
         solution.addLast(num);
+        int temp = 0;
         while(!solution.isEmpty()){
-            int temp = solution.poll();
-            System.out.print(temp + "-");
+            temp = solution.poll();
             for(int i=0;i<graph[temp].size();i++){
                if(!pass[graph[temp].get(i)]){
                    solution.addLast(graph[temp].get(i));
                    pass[graph[temp].get(i)] = true;
                }
             }
+            //System.out.print(temp + "-");
         }
         System.out.println(" ");
     }
