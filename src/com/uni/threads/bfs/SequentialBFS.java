@@ -1,8 +1,47 @@
 package com.uni.threads.bfs;
 
 
-import java.util.LinkedList;
+import java.util.Arrays;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
+public class SequentialBFS {
+    private final int[][] matrix; // Matriz de abyacencia
+    private final boolean[] visited; // Generado de puntos visitados
+    private final Queue<Integer> queue; //
+    private final int startVertex;
+    public SequentialBFS(int[][] matrix){
+        this.matrix = matrix;
+        this.visited = new boolean[matrix.length];
+        this.queue = new PriorityQueue();
+        this.startVertex = 0;
+        Arrays.fill(this.visited, false);
+    }
+    public void make() {
+        queue.add(startVertex);
+        while(!queue.isEmpty()){
+            int node = queue.poll();
+            if(!visited[node]){
+                //System.out.println(node);
+                visited[node] = true;
+                for(int i = 0; i < matrix.length; i++){
+                    if(node==i)continue;
+                    if(matrix[node][i] == 1 && !visited[i]){
+                        queue.add(i);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+/*
 public class SequentialBFS {
     private final int vertx; // Numero de vertices
     private final LinkedList<Integer>[]  graph; // Matriz de abyacencia
@@ -58,3 +97,4 @@ public class SequentialBFS {
 
 
 }
+*/
