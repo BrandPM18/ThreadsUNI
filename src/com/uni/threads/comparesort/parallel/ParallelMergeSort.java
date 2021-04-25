@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.tareagrupal;
+package com.uni.threads.comparesort.parallel;
 
 import java.util.Calendar;
 
