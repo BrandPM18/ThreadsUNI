@@ -42,10 +42,5 @@ public class ParallelSort {
         end = System.currentTimeMillis();
         
         this.tiempo = (end - start)/100;
-        
-        System.out.println("*****************************************");
-        System.out.println("Tiempo: "+(end - start)/100);
-        System.out.println("*****************************************");
-        
     }
 }
