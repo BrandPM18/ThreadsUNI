@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.uni.threads.comparesort.parallel;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 /**
@@ -31,40 +27,66 @@ public class ParallelMergeSort {
         return tiempo;
     }
     
-    public void merge(int A[], int izq, int m, int der)
+    public void merge(int left[], int right[], int a[])
     {
-        int i, j, k;
-        int[] B = new int[A.length];
+        int nL=left.length;
+	int nR=right.length;
+	int i,j,k;
         
-        for(i=izq; i<=der; i++){
-            B[i] = A[i];
-        }
+	i=j=k=0;
         
-        i=izq;
-        j=m+1;
-        k=izq;
-        
-        while(i<=m && j<=der){
-            if(B[i] <= B[j]){
-                A[k++] = B[i++];
-            }else{
-                A[k++] = B[j++];
+	while(i<nL&&j<nR)
+	{
+            if(left[i]<=right[j])
+            {
+                a[k]=left[i];
+                i++;
+                k++;
             }
-        }
-        
-        while(i<=m){
-            A[k++] = B[i++];
-        }
+            else
+            {
+                a[k]=right[j];
+                j++;
+                k++;
+            }
+	}
+	while(i<nL)
+	{
+            a[k]=left[i];
+            i++;
+            k++;
+	}
+	while(j<nR)
+	{
+            a[k]=right[j];
+            j++;
+            k++;
+	}
     }
     
-    public void mergesort(int A[], int izq, int der)
+    public void mergesort(int a[], int n)
     {
-        if(izq < der){
-            int m=(izq+der)/2;
-            mergesort(A, izq, m);
-            mergesort(A, m+1, der);
-            merge(A, izq, m, der);
+        if(n<=1){
+            return;
         }
+        
+	int mid=n/2;
+	int left[]=new int[mid];
+	int right[]=new int[n-mid];
+        
+        for(int i=0; i<mid; i++)
+        {
+            left[i]=a[i];
+        }
+        
+	for(int i=mid;i<n;i++)
+        {
+            right[i-mid]=a[i];
+        }
+        
+	mergesort(left,mid);
+	mergesort(right,n-mid);
+	merge(left,right,a);
     }
     
     private Thread mergeSortParallel(int[] A, int low, int high, int numOfThreads)
@@ -83,7 +105,7 @@ public class ParallelMergeSort {
     {
         if(numOfThreads <= 1)
         {
-            mergesort(A, izq, der);
+            mergesort(A, A.length);
             return;
         }
         
@@ -100,8 +122,26 @@ public class ParallelMergeSort {
             rightSorter.join();
         }catch(InterruptedException e){}
         
-        merge(A, izq, m, der);
+        int n;
+        n = A.length;
         
+	int mid=n/2;
+	int left[]=new int[mid];
+	int right[]=new int[n-mid];
+        
+        for(int i=0; i<mid; i++)
+        {
+            left[i]=A[i];
+        }
+        
+	for(int i=mid;i<n;i++)
+        {
+            right[i-mid]=A[i];
+        }
+        
+	mergesort(left,mid);
+	mergesort(right,n-mid);
+	merge(left,right,A);
     }
     
     public void ordenar()
@@ -123,7 +163,8 @@ public class ParallelMergeSort {
         ParallelMergeSort(ints, izq, der, numOfThreads);
         end = Calendar.getInstance().getTimeInMillis();
         
-        this.tiempo = (end - start)/100;
+        this.tiempo = end - start;
     }
     
 }
+

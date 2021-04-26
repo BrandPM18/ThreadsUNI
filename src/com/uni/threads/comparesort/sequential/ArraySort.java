@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.uni.threads.comparesort.sequential;
 
 import java.util.Arrays;
+import java.util.Calendar;
 
 /**
  *
@@ -36,12 +32,12 @@ public class ArraySort {
         
         double start;
         double end;
-        
-        start = System.currentTimeMillis();
+
+	start = Calendar.getInstance().getTimeInMillis();
         Arrays.sort(ints);
-        end = System.currentTimeMillis();
+        end = Calendar.getInstance().getTimeInMillis();
         
-        this.tiempo = (end - start)/100;
+        this.tiempo = end - start;
     }
     
 }
