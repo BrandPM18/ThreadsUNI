@@ -150,7 +150,7 @@ public class ParallelMergeSort {
         
         for (int i=0; i<ints.length; i++)
         {
-            ints[i]= (int)(Math.random()*datos);
+            ints[i]= ints.length - i;
         }
         
         long start;
